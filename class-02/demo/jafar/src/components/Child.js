@@ -1,7 +1,10 @@
 import React from 'react';
 
 import jafarPicture from './assets/jafar.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 class Child extends React.Component {
 
     constructor(props) {
@@ -22,13 +25,17 @@ class Child extends React.Component {
         return (
             <div>
                 <h3>Hello my name is {this.props.name}</h3>
-                <img src={jafarPicture} alt={this.props.name} />
-                <br />
-                <button onClick={this.giveCookie} >👋 Give {this.props.name} a cookie 🍪</button>
-                <br />
-                <span>
-                    Number Of cookies eaten {this.state.numberOfCookiesEaten}
-                </span>
+
+                <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={jafarPicture} />
+                    <Card.Body>
+                        <Card.Title>Card Title</Card.Title>
+                        <Card.Text>
+                            Number Of cookies eaten {this.state.numberOfCookiesEaten}
+                        </Card.Text>
+                        <Button onClick={this.giveCookie} variant="primary">👋 Give {this.props.name} a cookie 🍪</Button>
+                    </Card.Body>
+                </Card>
             </div>
         )
     }
