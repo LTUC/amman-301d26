@@ -50,7 +50,9 @@ class Child extends React.Component {
         </Card>
         <Card style={{ width: '18rem' }}>
           <Card.Body>
-            <JafarForm />
+            <JafarForm
+
+              updateFavoriteColor={this.updateFavoriteColor} />
           </Card.Body>
         </Card>
       </div>

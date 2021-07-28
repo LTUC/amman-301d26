@@ -7,22 +7,30 @@ export class JafarForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formTitle: 'Jafars'
+      newColor: ''
     }
+  }
+
+  // Method Number 1 
+  // submittedColorForm = (event) => {
+  //   event.preventDefault();
+  //   const color = event.target.favColor.value;
+  //   this.props.updateFavoriteColor(color);
+  // }
+
+
+  // Method number 2
+
+  // More steps, but guaranteed to pass the data completely
+  updatingTheState = (event) => {
+    this.setState({
+      newColor: event.target.value
+    });
   }
 
   submittedColorForm = (event) => {
     event.preventDefault();
-    const color = event.target.favColor.value;
-    this.props.updateFavoriteColor(color);
-  }
-
-  submittedTitleForm = (event) => {
-    event.preventDefault();
-    const title = event.target.newTitle.value;
-    this.setState({
-      formTitle: title
-    });
+    this.props.updateFavoriteColor(this.state.newColor);
   }
 
   render() {
@@ -32,20 +40,7 @@ export class JafarForm extends Component {
         <Form onSubmit={(event) => this.submittedColorForm(event)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Favorite Color</Form.Label>
-            <Form.Control name="favColor" type="text" placeholder="Enter Favorite Color" />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-        <h1>
-          {this.state.formTitle} Form
-        </h1>
-        <Form onSubmit={(event) => this.submittedTitleForm(event)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Form Title</Form.Label>
-            <Form.Control name="newTitle" type="text" placeholder="Enter Form new Title" />
+            <Form.Control onChange={(event => this.updatingTheState(event))} name="favColor" type="text" placeholder="Enter Favorite Color" />
           </Form.Group>
 
           <Button variant="primary" type="submit">
