@@ -20,7 +20,7 @@ export class Content extends Component {
     }
   }
 
-  componentDidMount = () => {
+  componentDidMount = () => { // component did mount is a react lifecycle component that is invoked/ executed once the component mounted / loaded
     // the function getIdTokenClaims is a promise based function
     this.props.auth0.getIdTokenClaims().then(tokenResponse => {
 

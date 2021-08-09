@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Welcome.css';
+import MyCats from './components/MyCats';
 
 class Profile extends Component {
   render() {
@@ -27,6 +28,11 @@ class Profile extends Component {
           <Row>
             <Col md={12}>
               <Content />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <MyCats />
             </Col>
           </Row>
         </Container>
