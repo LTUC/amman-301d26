@@ -45,10 +45,27 @@ export class MyCats extends Component {
 
     e.preventDefault();
     this.handelDisplayModal(); // hide the modal after form submission
-    console.log('name: ', e.target.catName.value);
-    console.log('breed: ', e.target.catBreed.value);
-    console.log('Image: ', e.target.catImage.value);
+    // console.log('name: ', e.target.catName.value);
+    // console.log('breed: ', e.target.catBreed.value);
+    // console.log('Image: ', e.target.catImage.value);
+
+    const body = {
+      email: this.props.auth0.user.email, // we are getting the email of the user from auth0
+      cat_name: e.target.catName.value,
+      cat_breed: e.target.catBreed.value,
+      cat_img: e.target.catImage.value,
+    };
+
+    axios.post(`${process.env.REACT_APP_SERVER}/cat`, body).then(axiosResponse => {
+      // once we get the new added cat from the server, we are going to push it to our cats array
+      // console.log(axiosResponse.data);
+      this.state.cats.push(axiosResponse.data);
+      this.setState({
+        cats: this.state.cats
+      });
+    }).catch(error => alert(error));
   }
+
   render() {
     return (
       <>
@@ -72,7 +89,7 @@ export class MyCats extends Component {
             {
               this.state.cats.map((cat, idx) => {
                 return (
-                  <Col md={6} key={idx}>
+                  <Col md={4} key={idx}>
                     <Card
                       style={{ width: '18rem' }}
                     >
