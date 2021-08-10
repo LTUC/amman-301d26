@@ -14,7 +14,7 @@ export class MyCats extends Component {
     super(props);
     this.state = {
       cats: [],
-      displayModal: false
+      displayAddModal: false
     };
   }
 
@@ -35,7 +35,7 @@ export class MyCats extends Component {
    * display Modal function that updates the state to display the formModal
    */
   handelDisplayModal = () => {
-    this.setState({ displayModal: !this.state.displayModal });
+    this.setState({ displayModal: !this.state.displayAddModal });
   }
 
   /**
@@ -98,7 +98,7 @@ export class MyCats extends Component {
 
         {/* The form Modal */}
         <FormModal
-          show={this.state.displayModal}
+          show={this.state.displayAddModal}
           handelDisplayModal={this.handelDisplayModal}
           handelSubmitForm={this.handelAddCatForm}
         />
