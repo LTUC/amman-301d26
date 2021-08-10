@@ -5,13 +5,16 @@ import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import FormModal from './FormModal';
 
 export class MyCats extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      cats: []
+      cats: [],
+      displayModal: false
     };
   }
 
@@ -28,19 +31,48 @@ export class MyCats extends Component {
     }).catch(error => alert(error)); // will execute if the promise was rejected, basically something going wrong
   };
 
+  /**
+   * display Modal function that updates the state to display the formModal
+   */
+  handelDisplayModal = () => {
+    this.setState({ displayModal: !this.state.displayModal });
+  }
+
+  /**
+   * Handel the submission of the form
+   */
+  handelSubmitForm = (e) => {
+
+    e.preventDefault();
+    this.handelDisplayModal(); // hide the modal after form submission
+    console.log('name: ', e.target.catName.value);
+    console.log('breed: ', e.target.catBreed.value);
+    console.log('Image: ', e.target.catImage.value);
+  }
   render() {
     return (
       <>
         <br />
         <h1>My Cats! 🐱</h1>
         <br />
+        {/* Button used to activate the modal */}
+        <Button variant="secondary" onClick={() => this.handelDisplayModal()}>Add a Cat</Button>
+
+        {/* The form Modal */}
+        <FormModal
+          show={this.state.displayModal}
+          handelDisplayModal={this.handelDisplayModal}
+          handelSubmitForm={this.handelSubmitForm}
+        />
+        <br />
+        <br />
         {
           this.state.cats.length &&
           <Row>
             {
-              this.state.cats.map(cat => {
+              this.state.cats.map((cat, idx) => {
                 return (
-                  <Col md={6}>
+                  <Col md={6} key={idx}>
                     <Card
                       style={{ width: '18rem' }}
                     >
@@ -50,6 +82,7 @@ export class MyCats extends Component {
                         <Card.Text>
                           {cat.breed} 🐈
                         </Card.Text>
+                        <Button variant="outline-danger">Delete Cat</Button>
                       </Card.Body>
                     </Card>
                   </Col>
