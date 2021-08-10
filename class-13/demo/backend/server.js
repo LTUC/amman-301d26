@@ -44,7 +44,11 @@ app.use(express.json()); // it will decode the post body request data
  * =======================
  */
 const { verifyToken } = require('./controller/auth.controller'); // Token Auth Controller
-const { getCats, creatCat } = require('./controller/cat.controller'); // Cats Controller
+const {
+  getCats,
+  creatCat,
+  deleteCat
+} = require('./controller/cat.controller'); // Cats Controller
 
 /**
  * Seed DB helper function
@@ -64,11 +68,17 @@ const { seedCatsCollection } = require('./models/cats.model');
  * 2. Add the CREATE and DELETE operations to your APP
  *    - Add a post method to create a new cat
  *    - Add a delete method to delete a cat by its id
+ * 3. For the delete operation do the following:
+ *    - create a delete http method
+ *    - connect that delete endpoint to a delete operation with a callback function
+ *    - to delete items with the delete request we will use the endpoint parameter
+ *    - what we will pass in the parameter will be the ID of the cat that we want to delete
  */
 app.get('/', (request, response) => response.send('Hello World 🥳 🍕'));// Proof Of Life Route
 app.get('/verify-token', verifyToken); // verify JWT Token route
 app.get('/cats', getCats); // Read Operation
 app.post('/cat', creatCat); // This endpoint is only responsible for handling requests that will create new cats
+app.delete('/cat/:cat_id', deleteCat);
 
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);

@@ -66,6 +66,27 @@ export class MyCats extends Component {
     }).catch(error => alert(error));
   }
 
+  /**
+   * 
+   * Delete Cat function
+   */
+
+  handelDeleteCat = (catId) => {
+    axios.delete(`${process.env.REACT_APP_SERVER}/cat/${catId}`).then(res => {
+      // console.log(res.data);
+      if (res.data.ok === 1) {
+        // once the item is deleted on the backend
+        // create a temp var that will contain all of the cats except the cat the got deleted
+        // then update the state to re-render
+
+        const tempCatObj = this.state.cats.filter(cat => cat._id !== catId);
+        this.setState({
+          cats: tempCatObj
+        });
+      }
+    }).catch(error => alert(error))
+  }
+
   render() {
     return (
       <>
@@ -99,7 +120,7 @@ export class MyCats extends Component {
                         <Card.Text>
                           {cat.cat_breed} 🐈
                         </Card.Text>
-                        <Button variant="outline-danger">Delete Cat</Button>
+                        <Button variant="outline-danger" onClick={() => this.handelDeleteCat(cat._id)}>Delete Cat</Button>
                       </Card.Body>
                     </Card>
                   </Col>

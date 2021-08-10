@@ -50,7 +50,18 @@ const creatCat = async (req, res) => {
   res.json(newCatObj);
 }
 
+const deleteCat = async (req, res) => {
+  // get the params values from the request
+  const catId = req.params.cat_id;
+
+  catModel.deleteOne({ _id: catId }, (error, deleted) => {
+    res.send(deleted);
+  });
+
+}
+
 module.exports = {
   getCats,
-  creatCat
+  creatCat,
+  deleteCat
 }
