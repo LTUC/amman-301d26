@@ -18,7 +18,7 @@ const catSchema = new mongoose.Schema({
 // Step 2: Generate the model form the Schema 
 // Note: A model is basically  a collection
 // Collections in Mongo DB are used to hold Data
-const catModel = mongoose.model('users', catSchema);
+const catModel = mongoose.model('cats', catSchema);
 
 
 // Step 3: Use the model/ collection to create new data
