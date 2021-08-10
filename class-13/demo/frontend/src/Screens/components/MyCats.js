@@ -39,9 +39,9 @@ export class MyCats extends Component {
   }
 
   /**
-   * Handel the submission of the form
+   * Handel the submission of a new cat
    */
-  handelSubmitForm = (e) => {
+  handelAddCatForm = (e) => {
 
     e.preventDefault();
     this.handelDisplayModal(); // hide the modal after form submission
@@ -100,7 +100,7 @@ export class MyCats extends Component {
         <FormModal
           show={this.state.displayModal}
           handelDisplayModal={this.handelDisplayModal}
-          handelSubmitForm={this.handelSubmitForm}
+          handelSubmitForm={this.handelAddCatForm}
         />
         <br />
         <br />
