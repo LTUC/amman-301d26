@@ -5,12 +5,14 @@
  */
 const mongoose = require('mongoose'); // mongoose package used to create the schema and generate the model
 
-const catSchema = require('./cat.schema');
 
 // Step 1: Draw the schema on which the model will be generated!
 const userSchema = new mongoose.Schema({
-  email: { type: String, unique: true },
-  cats: [catSchema] // a field that is an array of cat Schemas 
+  // Here are providing the fields (Property keys and their types) to our Collection Schema
+  email: { type: String },
+  cat_name: { type: String },
+  cat_breed: { type: String },
+  cat_img: { type: String },
 });
 
 // Step 2: Generate the model form the Schema 
@@ -25,40 +27,22 @@ const userModel = mongoose.model('users', userSchema);
 
 const seedUsersCollection = () => {
   try { // this try catch method is to safely add new users to the DB, and if the user already exists it wont crash our application
-    const newUserOne = new userModel({
-      email: "t.hamoudi@ltuc.com",
-      cats: [
-        {
-          name: "mishmish",
-          breed: "orange tabby",
-          img: "https://pulpbits.net/wp-content/uploads/2014/01/Orange-tabby.jpg"
-        },
-        {
-          name: "boogie",
-          breed: "Calico",
-          img: "https://pixfeeds.com/images/17/442620/1200-484713024-turkish-angora-calico-cat.jpg"
-        },
-      ]
-    });
-    const newUserTwo = new userModel({
+    const firstCats = new userModel({
       email: "tamim.hamoudi@gmail.com",
-      cats: [
-        {
-          name: "mishmish",
-          breed: "orange tabby",
-          img: "https://pulpbits.net/wp-content/uploads/2014/01/Orange-tabby.jpg"
-        },
-        {
-          name: "boogie",
-          breed: "Calico",
-          img: "https://pixfeeds.com/images/17/442620/1200-484713024-turkish-angora-calico-cat.jpg"
-        },
-      ]
+      cat_name: "mishmish",
+      cat_breed: "orange tabby",
+      cat_img: "https://pulpbits.net/wp-content/uploads/2014/01/Orange-tabby.jpg"
+    });
+    const secondCats = new userModel({
+      email: "tamim.hamoudi@gmail.com",
+      cat_name: "boogie",
+      cat_breed: "Calico",
+      cat_img: "https://pixfeeds.com/images/17/442620/1200-484713024-turkish-angora-calico-cat.jpg"
     });
 
-    // console.log(newUser);
-    newUserOne.save();
-    newUserTwo.save();
+    // console.log(firstCats);
+    firstCats.save();
+    secondCats.save();
   } catch (error) {
     console.log("Error while creating the user: ", error.message)
   }

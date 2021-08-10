@@ -76,11 +76,11 @@ export class MyCats extends Component {
                     <Card
                       style={{ width: '18rem' }}
                     >
-                      <Card.Img variant="top" src={cat.img} />
+                      <Card.Img variant="top" src={cat.cat_img} />
                       <Card.Body>
-                        <Card.Title>{cat.name}</Card.Title>
+                        <Card.Title>{cat.cat_name}</Card.Title>
                         <Card.Text>
-                          {cat.breed} 🐈
+                          {cat.cat_breed} 🐈
                         </Card.Text>
                         <Button variant="outline-danger">Delete Cat</Button>
                       </Card.Body>

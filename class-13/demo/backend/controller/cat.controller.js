@@ -10,12 +10,12 @@ const getCats = async (req, res) => {
 
   // Using the model, we are going to either use the find or findOne Method to get the data from the DB
   // translation code: in the userModel collection, find me a user data that matches the email 
-  userModel.findOne({ email: email }, (err, user) => {
+  userModel.find({ email: email }, (err, userCats) => {
 
-    if (user === null) {
+    if (userCats === null) {
       res.send('no data was found');
     } else {
-      res.json(user.cats);
+      res.json(userCats);
     }
   });
 
