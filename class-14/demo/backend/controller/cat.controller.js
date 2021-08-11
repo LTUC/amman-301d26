@@ -60,8 +60,44 @@ const deleteCat = async (req, res) => {
 
 }
 
+
+/**
+ * With the update cat function, we are going to get both the params and the req body data
+ * 
+ * - the params are going to be used to get the ID of the item we want to update in our DB
+ * - the body will contain the new data that we want to update
+ */
+
+const updateCat = async (req, res) => {
+
+  const catId = req.params.cat_id; // the passed cat ID in the params
+
+  const {
+    cat_name,
+    cat_breed,
+    cat_img
+  } = req.body;
+
+  // by default the findByIdAndUpdate method will return the old data even if it got updated
+  // therefore we need to provide a flag to tell the method to return the new updated data
+  catModel.findByIdAndUpdate(
+    { _id: catId }, // the id of the item we want to find
+    {
+      cat_name: cat_name,
+      cat_breed: cat_breed,
+      cat_img: cat_img
+    }, // will be the list of new data we want to update
+    { new: true }, // the flag to tell the method to return the new updated data
+    (err, data) => {
+      res.json(data);
+    }
+  )
+
+}
+
 module.exports = {
   getCats,
   creatCat,
-  deleteCat
+  deleteCat,
+  updateCat
 }

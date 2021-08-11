@@ -47,7 +47,8 @@ const { verifyToken } = require('./controller/auth.controller'); // Token Auth C
 const {
   getCats,
   creatCat,
-  deleteCat
+  deleteCat,
+  updateCat
 } = require('./controller/cat.controller'); // Cats Controller
 
 /**
@@ -73,12 +74,19 @@ const { seedCatsCollection } = require('./models/cats.model');
  *    - connect that delete endpoint to a delete operation with a callback function
  *    - to delete items with the delete request we will use the endpoint parameter
  *    - what we will pass in the parameter will be the ID of the cat that we want to delete
+ * 
+ * Lecture 14:
+ * 
+ * 4. We need to implement an endpoint to update our cats
+ *    - the endpoint will call a callback function that will update the data in our DB
+ *    - the endpoint should the ID of the cat that we want to update
  */
 app.get('/', (request, response) => response.send('Hello World 🥳 🍕'));// Proof Of Life Route
 app.get('/verify-token', verifyToken); // verify JWT Token route
 app.get('/cats', getCats); // Read Operation
 app.post('/cat', creatCat); // This endpoint is only responsible for handling requests that will create new cats
 app.delete('/cat/:cat_id', deleteCat);
+app.put('/cat/:cat_id', updateCat);
 
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);

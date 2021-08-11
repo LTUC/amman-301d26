@@ -99,22 +99,8 @@ export class MyCats extends Component {
     }).catch(error => alert(error))
   }
 
-  /**
-   * 
-   * Update Cat Function
-   */
-  handelUpdateCatForm = (catData) => {
-
-    this.handelDisplayModal(); // hide the modal after form submission
-
-    const body = {
-      email: this.props.auth0.user.email, // we are getting the email of the user from auth0
-      cat_name: catData.catName,
-      cat_breed: catData.catBreed,
-      cat_img: catData.catImage,
-    };
-
-    const catId = catData.catId;
+  updateCatsArrOfObjectState = (newCatsArr) => {
+    this.setState({ cat: newCatsArr });
   }
 
   render() {
@@ -137,8 +123,9 @@ export class MyCats extends Component {
           <UpdateFormModal
             show={this.state.displayUpdateModal}
             handelDisplayModal={this.handelDisplayUpdateModal}
-            handelUpdateCatForm={this.handelUpdateCatForm}
             catObject={this.state.updateCatObject}
+            updateCats={this.updateCatsArrOfObjectState}
+            catsArr={this.state.cats}
           />
         }
         <br />
@@ -162,7 +149,8 @@ export class MyCats extends Component {
                         <Button variant="outline-danger" onClick={() => this.handelDeleteCat(cat._id)}>
                           Delete Cat
                         </Button>
-                        <Button variant="outline-danger" onClick={() => this.handelDisplayUpdateModal(cat)}>
+                        <br />
+                        <Button variant="outline-dark" onClick={() => this.handelDisplayUpdateModal(cat)}>
                           Update Cat
                         </Button>
                       </Card.Body>

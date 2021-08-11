@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 export class UpdateFormModal extends Component {
   constructor(props) {
@@ -20,14 +21,39 @@ export class UpdateFormModal extends Component {
 
   handelSubmitForm = ((e) => {
     e.preventDefault();
-    const catObject = {
-      catId: this.state.catId,
-      catName: this.state.catName,
-      catBreed: this.state.catBreed,
-      catImage: this.state.catImage,
-
+    const catId = this.state.catId;
+    const body = {
+      cat_name: this.state.catName,
+      cat_breed: this.state.catBreed,
+      cat_img: this.state.catImage,
     };
-    this.props.handelUpdateCatForm(catObject);
+
+    axios.put(`${process.env.REACT_APP_SERVER}/cat/${catId}`, body).then((axiosResponse) => {
+      console.log('updated Cat Data:  ', axiosResponse.data);
+
+      // once we get the new updated data from axios from the backend, we need to reflect it on the frontend without refreshing
+
+      // we will use the map function to loop through the array of cat that we have. find the the cat that got updated by its ID and 
+      // update the data for that cat
+
+      const updatedCatArr = this.props.catsArr.map(cat => {
+
+        if (cat._id === catId) {
+          cat.cat_name = axiosResponse.data.cat_name;
+          cat.cat_breed = axiosResponse.data.cat_breed;
+          cat.cat_img = axiosResponse.data.cat_img;
+
+          return cat;
+        }
+        return cat;
+
+      });
+      this.props.updateCats(updatedCatArr);
+
+
+
+      this.props.handelDisplayModal({}); // to  close the modal and reset the object of the cat to be updated
+    }).catch(error => alert(error))
   });
 
   render() {
@@ -67,4 +93,4 @@ export class UpdateFormModal extends Component {
   }
 }
 
-export default UpdateFormModal
+export default UpdateFormModal;
